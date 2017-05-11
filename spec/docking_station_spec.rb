@@ -17,11 +17,11 @@ describe DockingStation  do
 
   it "Allows bikes to be docked" do
     bike = Bike.new
-    expect(subject.dock_a_bike(bike)).to eq bike
+    expect(subject.dock_a_bike(bike)).to eq [bike]
   end
 
   it "shows if a bike has been docked" do
-    expect((DockingStation.new).dock_a_bike(@bikes)).to eq @bikes
+    expect((DockingStation.new).dock_a_bike(@bikes)).to eq [@bikes]
   end
 
   describe '#release_a_bike' do
@@ -31,10 +31,8 @@ describe DockingStation  do
 
   describe '#docks_a_bike' do
     it "Will only allow one bike to be docked" do
-      bike = Bike.new
-      subject.dock_a_bike(bike)
-      bike2 = Bike.new
-      expect {subject.dock_a_bike(bike2)}.to raise_error("No more space!")
+      20.times {subject.dock_a_bike(Bike.new)}
+      expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
     end
   end
 end
