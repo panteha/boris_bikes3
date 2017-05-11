@@ -28,6 +28,7 @@ describe DockingStation  do
   it "will raise an error when there are no bikes available" do
     expect {subject.release_a_bike}.to raise_error("No more bikes!")
   end
+end
 
   describe '#docks_a_bike' do
     it "Will only allow one bike to be docked" do
@@ -35,5 +36,12 @@ describe DockingStation  do
       expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
     end
   end
-end
+
+  it "allow change in the capacity" do
+    expect(DockingStation.new(10).capacity).to eq 10
+  end
+
+  it "Sets the capacity to default value" do
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+  end
 end
