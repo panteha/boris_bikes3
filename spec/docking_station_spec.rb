@@ -10,7 +10,7 @@ describe DockingStation  do
   end
 
   it "Releases a bike" do
-    #bike = Bike.new
+    bike = Bike.new
     subject.dock_a_bike(bike)
     expect(subject.release_a_bike).to eq bike
   end
@@ -21,7 +21,7 @@ describe DockingStation  do
   end
 
   it "shows if a bike has been docked" do
-    expect(DockingStation.new ).to respond_to :bike
+    expect(DockingStation.new ).to respond_to :bikes
   end
 
   describe '#release_a_bike' do
