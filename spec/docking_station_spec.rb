@@ -24,8 +24,10 @@ describe DockingStation  do
     expect(DockingStation.new ).to respond_to :bike
   end
 
-  #it "will raise an error when more than one bike is released" do
-  #  bike = Bike.new
-  #  expect {subject.release_a_bike}.to raise_error("No more bikes!")
-  #end
+  describe '#release_a_bike' do
+  it "will raise an error when there are no bikes available" do
+    expect {subject.release_a_bike}.to raise_error("No more bikes!")
+  end
+end
+
 end
