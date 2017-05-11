@@ -49,8 +49,7 @@ end
   bike = Bike.new
   bike.report_broken
   subject.dock_a_bike(bike)
-  expect(subject.release_a_bike).to eq nil
-
+  expect{subject.release_a_bike}.to raise_error "No working bike available"
 end
 
   it "Station accepts a broken bike" do
