@@ -31,7 +31,7 @@ describe DockingStation  do
 
   describe '#docks_a_bike' do
     it "Will only allow one bike to be docked" do
-      20.times {subject.dock_a_bike(Bike.new)}
+      DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(Bike.new)}
       expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
     end
   end
