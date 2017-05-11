@@ -14,8 +14,15 @@ end
 
 
   def release_a_bike
-    raise "No more bikes!" if empty?
-    @bikes.pop
+
+    fail "No more bikes!" if empty?
+    fail "No working bike available" if @bikes.all? {|bike| !bike.is_working?}
+    if @bikes.last.is_working
+      @bikes.pop
+    else
+      @bikes.rotate!
+      release_a_bike
+    end
   end
 
   def dock_a_bike(bike)

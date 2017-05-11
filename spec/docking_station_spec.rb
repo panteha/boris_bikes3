@@ -6,7 +6,7 @@ describe DockingStation  do
 
   it 'Checks bike is working' do
     bike = Bike.new
-    expect(bike).to be_bike_is_working
+    expect(bike).to be_is_working
   end
 
   it "Releases a bike" do
@@ -44,4 +44,32 @@ end
   it "Sets the capacity to default value" do
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
+
+  it "Not to release broken bike" do
+  bike = Bike.new
+  bike.report_broken
+  subject.dock_a_bike(bike)
+  expect(subject.release_a_bike).to eq nil
+
+end
+
+  it "Station accepts a broken bike" do
+    bike = Bike.new
+    bike.report_broken
+    station = DockingStation.new
+    station.dock_a_bike(bike)
+    expect(station.bikes.count).to eq 1
+  end
+
+  it "releases a bike as long as there is a working bike in the dock" do
+    station = DockingStation.new
+    working_bike = Bike.new
+    station.dock_a_bike(working_bike)
+    broken_bike = Bike.new
+    broken_bike.report_broken
+    station.dock_a_bike(broken_bike)
+    expect(station.release_a_bike).to eq working_bike
+
+  end
+
 end
