@@ -15,8 +15,11 @@ describe DockingStation  do
   end
 
   it "shows if a bike has been docked" do
+    expect(DockingStation.new ).to respond_to :bike
+  end
 
-
-     expect(DockingStation.new ).to respond_to :bike
+  it "will raise an error when more than one bike is released" do
+    bike = Bike.new
+    expect {bike = Bike.new}.to raise_error("No more bikes!")
   end
 end
