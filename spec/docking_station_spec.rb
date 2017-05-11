@@ -10,7 +10,7 @@ describe DockingStation  do
   end
 
   it "Releases a bike" do
-    bike = Bike.new
+    #bike = Bike.new
     subject.dock_a_bike(bike)
     expect(subject.release_a_bike).to eq bike
   end
@@ -28,6 +28,14 @@ describe DockingStation  do
   it "will raise an error when there are no bikes available" do
     expect {subject.release_a_bike}.to raise_error("No more bikes!")
   end
-end
 
+  describe '#docks_a_bike' do
+    it "Will only allow one bike to be docked" do
+      bike = Bike.new
+      subject.dock_a_bike(bike)
+      bike2 = Bike.new
+      expect {subject.dock_a_bike(bike2)}.to raise_error("No more space!")
+    end
+  end
+end
 end
