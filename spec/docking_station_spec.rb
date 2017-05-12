@@ -18,8 +18,6 @@ describe DockingStation  do
   end
 
   it "Allows bikes to be docked" do
-    #bike = Bike.new
-    bike = double(:bike)
     expect(subject.dock_a_bike(bike)).to eq [bike]
   end
 
@@ -49,12 +47,12 @@ end
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
 
-#   it "Not to release broken bike" do
-#   #bike = Bike.new
-#   double(:bike).report_broken
-#   subject.dock_a_bike(double(:bike))
-#   expect{subject.release_a_bike}.to raise_error "No working bike available"
-# end
+  it "Not to release broken bike" do
+  bike = double(:bike, report_broken: true, is_working?: false)
+  bike.report_broken
+  subject.dock_a_bike(bike)
+  expect{subject.release_a_bike}.to raise_error "No working bike available"
+end
 
   # it "Station accepts a broken bike" do
   #   #bike = Bike.new
