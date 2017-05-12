@@ -17,10 +17,11 @@ describe DockingStation  do
     expect(subject.release_a_bike).to eq bike
   end
 
-  # it "Allows bikes to be docked" do
-  #   #bike = Bike.new
-  #   expect(subject.dock_a_bike(double(:bike))).to eq [bike]
-  # end
+  it "Allows bikes to be docked" do
+    #bike = Bike.new
+    bike = double(:bike)
+    expect(subject.dock_a_bike(bike)).to eq [bike]
+  end
 
   it "shows if a bike has been docked" do
     expect((DockingStation.new).dock_a_bike(@bikes)).to eq [@bikes]
@@ -32,12 +33,13 @@ describe DockingStation  do
   end
 end
 
-  # describe '#docks_a_bike' do
-  #   it "Will only allow one bike to be docked" do
-  #     DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(Bike.new)}
-  #     expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
-  #   end
-  # end
+  describe '#docks_a_bike' do
+    it "Will only allow one bike to be docked" do
+      bike = double(:bike)
+      DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(bike)}
+      expect {subject.dock_a_bike(bike)}.to raise_error("No more space!")
+    end
+  end
 
   it "allow change in the capacity" do
     expect(DockingStation.new(10).capacity).to eq 10
