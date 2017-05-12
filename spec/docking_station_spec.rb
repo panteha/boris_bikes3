@@ -10,14 +10,14 @@ describe DockingStation  do
   end
 
   it "Releases a bike" do
-    bike = Bike.new
-    subject.dock_a_bike(bike)
+    #bike = Bike.new
+    subject.dock_a_bike(double(:bike))
     expect(subject.release_a_bike).to eq bike
   end
 
   it "Allows bikes to be docked" do
-    bike = Bike.new
-    expect(subject.dock_a_bike(bike)).to eq [bike]
+    #bike = Bike.new
+    expect(subject.dock_a_bike(double(:bike))).to eq [bike]
   end
 
   it "shows if a bike has been docked" do
@@ -46,14 +46,15 @@ end
   end
 
   it "Not to release broken bike" do
-  bike = Bike.new
-  bike.report_broken
-  subject.dock_a_bike(bike)
+  #bike = Bike.new
+  double(:bike).report_broken
+  subject.dock_a_bike(double(:bike))
   expect{subject.release_a_bike}.to raise_error "No working bike available"
 end
 
   it "Station accepts a broken bike" do
-    bike = Bike.new
+    #bike = Bike.new
+    bike = double(:bike)
     bike.report_broken
     station = DockingStation.new
     station.dock_a_bike(bike)
@@ -62,9 +63,11 @@ end
 
   it "releases a bike as long as there is a working bike in the dock" do
     station = DockingStation.new
-    working_bike = Bike.new
+    working_bike = double(:bike)
+    #working_bike = Bike.new
     station.dock_a_bike(working_bike)
-    broken_bike = Bike.new
+    #broken_bike = Bike.new
+    broken_bike = double(:bike)
     broken_bike.report_broken
     station.dock_a_bike(broken_bike)
     expect(station.release_a_bike).to eq working_bike
