@@ -33,7 +33,6 @@ end
 
   describe '#docks_a_bike' do
     it "Will only allow one bike to be docked" do
-      bike = double(:bike)
       DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(bike)}
       expect {subject.dock_a_bike(bike)}.to raise_error("No more space!")
     end
@@ -49,31 +48,27 @@ end
 
   it "Not to release broken bike" do
   bike = double(:bike, report_broken: true, is_working?: false)
-  bike.report_broken
   subject.dock_a_bike(bike)
   expect{subject.release_a_bike}.to raise_error "No working bike available"
 end
 
-  # it "Station accepts a broken bike" do
-  #   #bike = Bike.new
-  #   bike = double(:bike)
-  #   bike.report_broken
-  #   station = DockingStation.new
-  #   station.dock_a_bike(bike)
-  #   expect(station.bikes.count).to eq 1
-  # end
+  it "Station accepts a broken bike" do
+    bike = double(:bike, report_broken: true)
+    subject.dock_a_bike(bike)
+    expect(subject.bikes.count).to eq 1
+  end
 
-  # it "releases a bike as long as there is a working bike in the dock" do
-  #   station = DockingStation.new
-  #   working_bike = double(:bike)
-  #   #working_bike = Bike.new
-  #   station.dock_a_bike(working_bike)
-  #   #broken_bike = Bike.new
-  #   broken_bike = double(:bike)
-  #   broken_bike.report_broken
-  #   station.dock_a_bike(broken_bike)
-  #   expect(station.release_a_bike).to eq working_bike
+  it "releases a bike as long as there is a working bike in the dock" do
+    station = DockingStation.new
+    working_bike = double(:bike)
+    #working_bike = Bike.new
+    station.dock_a_bike(working_bike)
+    #broken_bike = Bike.new
+    broken_bike = double(:bike)
+    broken_bike.report_broken
+    station.dock_a_bike(broken_bike)
+    expect(station.release_a_bike).to eq working_bike
 
-  # end
+  end
 
 end
