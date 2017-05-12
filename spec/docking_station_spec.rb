@@ -6,18 +6,16 @@ describe DockingStation  do
 
   let(:bike) { double :bike}
   it 'Checks bike is working' do
-    # bike = Bike.new
     allow(bike).to receive(:is_working?).and_return(true)
     expect(bike).to be_is_working
   end
 
-  # let(:bike) { double :bike}
-  # it "Releases a bike" do
-  #   #bike = Bike.new
-  #   subject.dock_a_bike(bike)
-  #   allow(bike).to receive(:is_working?).and_return(true)
-  #   expect(subject.release_a_bike).to eq bike
-  # end
+
+  it "Releases a bike" do
+    bike = double(:bike, is_working: true, is_working?: true)
+    subject.dock_a_bike(bike)
+    expect(subject.release_a_bike).to eq bike
+  end
 
   # it "Allows bikes to be docked" do
   #   #bike = Bike.new
@@ -34,12 +32,12 @@ describe DockingStation  do
   end
 end
 
-  describe '#docks_a_bike' do
-    it "Will only allow one bike to be docked" do
-      DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(Bike.new)}
-      expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
-    end
-  end
+  # describe '#docks_a_bike' do
+  #   it "Will only allow one bike to be docked" do
+  #     DockingStation::DEFAULT_CAPACITY.times {subject.dock_a_bike(Bike.new)}
+  #     expect {subject.dock_a_bike(Bike.new)}.to raise_error("No more space!")
+  #   end
+  # end
 
   it "allow change in the capacity" do
     expect(DockingStation.new(10).capacity).to eq 10
